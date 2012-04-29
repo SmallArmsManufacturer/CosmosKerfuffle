@@ -11,11 +11,14 @@ import javax.imageio.ImageIO;
 public class SplashScreen extends Scene {
 	
 	private BufferedImage pressAnyKey;
+        private BufferedImage splash;
 	private double elapsedTime;
 	
 	public SplashScreen() {
 		try {
 			pressAnyKey = ImageIO.read(SplashScreen.class.getResource("/pressAnyKey.png"));
+                        splash = ImageIO.read(SplashScreen.class.getResource("/splash.png"));
+
 		} catch (IOException ex) {
 			ex.printStackTrace(System.err);
 			System.exit(1);
@@ -29,8 +32,10 @@ public class SplashScreen extends Scene {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setBackground(Color.WHITE);
+		g.setBackground(Color.BLACK);
 		g.clearRect(0, 0, GamePanel.instance.getWidth(), GamePanel.instance.getHeight());
+                g.drawImage(splash, GamePanel.instance.getWidth() / 2 - splash.getWidth() / 2, GamePanel.instance.getHeight() / 2 - splash.getHeight() / 2, null);
+
 		if ((int) elapsedTime % 2 == 0)
 			g.drawImage(pressAnyKey, GamePanel.instance.getWidth() / 2 - pressAnyKey.getWidth() / 2, GamePanel.instance.getHeight() / 2 - pressAnyKey.getHeight() / 2, null);
 	}
