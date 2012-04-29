@@ -17,13 +17,17 @@ public class Ship extends Entity {
 	}
 	
 	public void thrust(double dt) {
-		vx += Math.sin(rotation) * dt * 100;
-		vy -= Math.cos(rotation) * dt * 100;
+		vx += Math.sin(rotation) * dt * 300;
+		vy -= Math.cos(rotation) * dt * 300;
 		
 		if (vx * vx + vy * vy > 10000) {
 			vx *= 0.8;
 			vy *= 0.8;
 		}
+		
+		Particle trail = new Particle(universe, x + Sprite.SIZE / 2, y + Sprite.SIZE / 2, 0, 0, Color.DARK_GRAY);
+		trail.fade = true;
+		universe.addEntity(trail);
 	}
 	
 	public void fire() {

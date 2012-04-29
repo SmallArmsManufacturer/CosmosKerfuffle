@@ -21,7 +21,7 @@ public class Particle extends Entity {
 	
 	@Override
 	public void update(double dt) {
-		if (fade && new Random().nextDouble() * 20 < 0.1)
+		if (fade && new Random().nextDouble() * 10 < 0.1)
 			universe.removeEntity(this);
 		x += vx * dt;
 		y += vy * dt;
