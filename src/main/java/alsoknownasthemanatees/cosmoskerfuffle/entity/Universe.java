@@ -30,9 +30,9 @@ public class Universe {
 		Random r = new Random();
 		for (int i = 0; i < NUM_STARS; i++)
 			entities.add(new Particle(this, r.nextDouble() * Universe.SIZE, r.nextDouble() * Universe.SIZE, 0, 0, Color.WHITE));
-		planet1 = new Planet(this, new Sprite(Sprite.Type.PLANET1), 50.0, 1000.0, 200, 200);
-                planet2 = new Planet(this, new Sprite(Sprite.Type.PLANET2), 30.0, 500.0, 600, 700);
-		planet3 = new Planet(this, new Sprite(Sprite.Type.PLANET3), 70.0, 1000.0, 800, 200);
+		planet1 = new Planet(this, new Sprite(Sprite.Type.PLANET1), 50.0, 700.0, 200, 200);
+                planet2 = new Planet(this, new Sprite(Sprite.Type.PLANET2), 30.0, 400.0, 600, 700);
+		planet3 = new Planet(this, new Sprite(Sprite.Type.PLANET3), 70.0, 700.0, 800, 200);
 
                 entities.add(planet1);
                 entities.add(planet2);
@@ -131,7 +131,10 @@ public class Universe {
                             player2.vx -= force * distanceX;
                             player2.vy -= force * distanceY;
                             if (Math.sqrt(distance) < p.radius)
+                            {
                                 player2.reset();
+                                player2.x += 100;
+                            }
                         }
 			
 			e.update(dt);
