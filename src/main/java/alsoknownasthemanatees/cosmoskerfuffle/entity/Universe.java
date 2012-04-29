@@ -62,8 +62,8 @@ public class Universe {
 			player1.reset();
 			player2.reset();
 			player2.x += 100;
-			player1.score--;
-			player2.score--;
+			player1.score -= 5;
+			player2.score -= 5;
 		}
 		
 		for (Entity e : entities) {
@@ -76,7 +76,7 @@ public class Universe {
 						explode((int) (player1.x + Sprite.SIZE / 2), (int) (player1.y + Sprite.SIZE / 2));
 						removeEntity(p);
 						player1.reset();
-						player2.score++;
+						player2.score += 15;
 					}
 					double dx2 = player2.x + Sprite.SIZE / 2 - p.x;
 					double dy2 = player2.y + Sprite.SIZE / 2 - p.y;
@@ -85,7 +85,7 @@ public class Universe {
 						removeEntity(p);
 						player2.reset();
 						player2.x += 100;
-						player1.score++;
+						player1.score += 15;
 					}
 				}
 			}
@@ -120,7 +120,10 @@ public class Universe {
                             player1.vx -= force * distanceX;
                             player1.vy -= force * distanceY;
                             if (Math.sqrt(distance) < p.radius)
+                            {
                                 player1.reset();
+                                player1.score -= 5;
+                            }
                             
                             distanceX = (double)player2.x - (double)e.x - p.radius;
                             distanceY = (double)player2.y - (double)e.y - p.radius;
@@ -134,6 +137,7 @@ public class Universe {
                             {
                                 player2.reset();
                                 player2.x += 100;
+                                player2.score -= 5;
                             }
                         }
 			
