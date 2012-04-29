@@ -41,7 +41,7 @@ public class Universe {
 	}
 	
 	public void explode(int x, int y) {
-		for (int i = 0; i < NUM_STARS; i++) {
+		for (int i = 0; i < 100; i++) {
 			Random r = new Random();
 			double angle = r.nextDouble() * Math.PI;
 			double vel = r.nextDouble() * 200 - 100;

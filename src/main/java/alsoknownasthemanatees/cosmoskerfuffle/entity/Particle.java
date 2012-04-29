@@ -30,7 +30,7 @@ public class Particle extends Entity {
 	@Override
 	public void paint(Graphics2D g) {
 		g.setColor(colour);
-		g.fillRect((int) x, (int) y, 1, 1);
+		g.fillRect((int) x, (int) y, 2, 2);
 	}
 	
 }
