@@ -76,7 +76,7 @@ public class Universe {
 						explode((int) (player1.x + Sprite.SIZE / 2), (int) (player1.y + Sprite.SIZE / 2));
 						removeEntity(p);
 						player1.reset();
-						player2.score += 15;
+						player2.score += 5;
 					}
 					double dx2 = player2.x + Sprite.SIZE / 2 - p.x;
 					double dy2 = player2.y + Sprite.SIZE / 2 - p.y;
@@ -85,7 +85,7 @@ public class Universe {
 						removeEntity(p);
 						player2.reset();
 						player2.x += 100;
-						player1.score += 15;
+						player1.score += 5;
 					}
 				}
 			}
