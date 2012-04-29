@@ -17,13 +17,21 @@ public class GamePanel extends JPanel implements KeyListener {
 	
 	public static final GamePanel instance = new GamePanel();
 	
+	private long prevTime = System.nanoTime();
+	
 	private GamePanel() {
 		setPreferredSize(new Dimension(800, 600));
 	}
 	
 	@Override
 	public void paint(Graphics g) {
-		Scene.stack.peek().paint((Graphics2D) g);
+		long elapsedTime = System.nanoTime() - prevTime;
+		double dt = elapsedTime / 1000000000.0;
+		prevTime += elapsedTime;
+		
+		Scene scene = Scene.stack.peek();
+		scene.update(dt);
+		scene.paint((Graphics2D) g);
 	}
 	
 	public static void main(String[] args) {

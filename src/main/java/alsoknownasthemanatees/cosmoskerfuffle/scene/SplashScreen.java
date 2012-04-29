@@ -15,4 +15,9 @@ public class SplashScreen extends Scene {
 		g.drawString("Press any key", 0, 10);
 	}
 	
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		Scene.stack.push(new MainScene());
+	}
+	
 }
