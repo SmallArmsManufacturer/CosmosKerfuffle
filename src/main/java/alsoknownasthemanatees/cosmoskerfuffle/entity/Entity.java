@@ -1,27 +1,18 @@
 package alsoknownasthemanatees.cosmoskerfuffle.entity;
 
-import alsoknownasthemanatees.cosmoskerfuffle.graphics.Sprite;
-import java.util.Random;
+import java.awt.Graphics2D;
 
-public class Entity {
+public abstract class Entity {
 	
-	public final Sprite sprite;
-	public double x, y, vx, vy, rotation;
+	public Universe universe;
+	public double x, y, vx, vy;
 	
-	public Entity(Sprite sprite) {
-		this.sprite = sprite;
-		x = 500;
-		y = 500;
+	public Entity(Universe universe) {
+		this.universe = universe;
 	}
 	
-	public void thrust (double dt) {
-		vx += Math.sin(rotation) * dt * 100;
-		vy -= Math.cos(rotation) * dt * 100;
-		
-		if (vx * vx + vy * vy > 10000) {
-			vx *= 0.8;
-			vy *= 0.8;
-		}
-	}
+	public void update(double dt) {}
+	
+	public abstract void paint(Graphics2D g);
 	
 }
