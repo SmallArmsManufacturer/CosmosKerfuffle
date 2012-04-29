@@ -8,6 +8,7 @@ public class Ship extends Entity {
 	
 	public final Sprite sprite;
 	public double rotation;
+	public int score;
 	
 	public Ship(Universe universe, Sprite sprite) {
 		super(universe);

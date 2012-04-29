@@ -3,6 +3,7 @@ package alsoknownasthemanatees.cosmoskerfuffle.entity;
 import alsoknownasthemanatees.cosmoskerfuffle.GamePanel;
 import alsoknownasthemanatees.cosmoskerfuffle.graphics.Sprite;
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ public class Universe {
 			player1.reset();
 			player2.reset();
 			player2.x += 100;
+			player1.score--;
+			player2.score--;
 		}
 		
 		for (Entity e : entities) {
@@ -64,6 +67,7 @@ public class Universe {
 						explode((int) (player1.x + Sprite.SIZE / 2), (int) (player1.y + Sprite.SIZE / 2));
 						removeEntity(p);
 						player1.reset();
+						player2.score++;
 					}
 					double dx2 = player2.x + Sprite.SIZE / 2 - p.x;
 					double dy2 = player2.y + Sprite.SIZE / 2 - p.y;
@@ -72,6 +76,7 @@ public class Universe {
 						removeEntity(p);
 						player2.reset();
 						player2.x += 100;
+						player1.score++;
 					}
 				}
 			}
@@ -113,6 +118,12 @@ public class Universe {
 		for (Entity e : entities) {
 			e.paint(g);
 		}
+		
+		g.setTransform(new AffineTransform());
+		g.setColor(Color.WHITE);
+		g.drawString("Player 1 score: " + player1.score, 0, GamePanel.instance.getHeight());
+		String p2score = "Player 2 score: " + player2.score;
+		g.drawString(p2score, GamePanel.instance.getWidth() - g.getFontMetrics().stringWidth(p2score), GamePanel.instance.getHeight());
 	}
 	
 	public void addEntity(Entity e) {
