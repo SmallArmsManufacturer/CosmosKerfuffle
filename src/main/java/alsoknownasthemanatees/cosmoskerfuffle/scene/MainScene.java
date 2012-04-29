@@ -13,26 +13,36 @@ import java.util.List;
 public class MainScene extends Scene {
 	
 	private List<Entity> entities = new ArrayList<Entity>();
+	private Entity player1, player2;
 	
 	public MainScene() {
-		entities.add(new Entity(new Sprite(Sprite.Type.PARROT)));
-		entities.add(new Entity(new Sprite(Sprite.Type.TURTLE)));
-		entities.get(0).x += 16;
-		entities.get(0).y += 16;
+		player1 = new Entity(new Sprite(Sprite.Type.PARROT));
+		player2 = new Entity(new Sprite(Sprite.Type.TURTLE));
+		entities.add(player1);
+		entities.add(player2);
 	}
 	
 	@Override
 	public void update(double dt) {
 			if (keys.contains(KeyEvent.VK_UP))
-				entities.get(0).thrust(dt);
+				player1.thrust(dt);
 			if (keys.contains(KeyEvent.VK_LEFT))
-				entities.get(0).rotation -= Math.PI * dt;
+				player1.rotation -= Math.PI * dt;
 			if (keys.contains(KeyEvent.VK_RIGHT))
-				entities.get(0).rotation += Math.PI * dt;
+				player1.rotation += Math.PI * dt;
+			
+			if (keys.contains(KeyEvent.VK_W))
+				player2.thrust(dt);
+			if (keys.contains(KeyEvent.VK_A))
+				player2.rotation -= Math.PI * dt;
+			if (keys.contains(KeyEvent.VK_D))
+				player2.rotation += Math.PI * dt;
 
 		for (Entity e : entities) {
 			e.x += e.vx * dt;
 			e.y += e.vy * dt;
+			if (e.x < 0) e.vx = Math.abs(e.vx);
+			if (e.y < 0) e.vy = Math.abs(e.vy);
 		}
 	}
 
