@@ -3,6 +3,7 @@ package alsoknownasthemanatees.cosmoskerfuffle.entity;
 import alsoknownasthemanatees.cosmoskerfuffle.graphics.Sprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 public class Ship extends Entity {
 	
@@ -39,6 +40,9 @@ public class Ship extends Entity {
 	public void reset() {
 		x = y = Universe.SIZE / 2;
 		vx = vy = rotation = 0;
+		Random r = new Random();
+		x += r.nextDouble() * 50 - 25;
+		y += r.nextDouble() * 50 - 25;
 	}
 	
 	@Override
