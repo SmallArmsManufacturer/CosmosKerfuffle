@@ -19,6 +19,14 @@ public class MainScene extends Scene {
 		entities.get(0).x += 16;
 		entities.get(0).y += 16;
 	}
+	
+	@Override
+	public void update(double dt) {
+		for (Entity e : entities) {
+			e.x += e.vx * dt;
+			e.y += e.vy * dt;
+		}
+	}
 
 	@Override
 	public void paint(Graphics2D g) {
@@ -38,11 +46,14 @@ public class MainScene extends Scene {
 		double zoomY = (double) (max_y - min_y) / (GamePanel.instance.getHeight() - 100);
 		double zoom = 1 / Math.max(zoomX, zoomY);
 		
-		g.translate(GamePanel.instance.getWidth() / 2.0, GamePanel.instance.getHeight() / 2.0);
-		g.transform(AffineTransform.getScaleInstance(zoom, zoom));
+		double center_x = (min_x + max_x) / 2;
+		double center_y = (min_y + max_y) / 2;
+		AffineTransform t = AffineTransform.getTranslateInstance(GamePanel.instance.getWidth() / 2.0, GamePanel.instance.getHeight() / 2.0);
+		t.scale(zoom, zoom);
+		g.setTransform(t);
 		
 		for (Entity e : entities) {
-			e.sprite.paint(g, (int) e.x - Sprite.SIZE, (int) e.y - Sprite.SIZE, Sprite.SIZE);
+			e.sprite.paint(g, (int) (e.x - center_x), (int) (e.y - center_y), Sprite.SIZE);
 		}
 	}
 	
