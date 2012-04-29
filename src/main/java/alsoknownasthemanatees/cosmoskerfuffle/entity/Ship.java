@@ -27,9 +27,9 @@ public class Ship extends Entity {
 	}
 	
 	public void fire() {
-		double vx = Math.sin(rotation) * 100;
-		double vy = -Math.cos(rotation) * 100;
-		universe.addEntity(new Particle(universe, x + Sprite.SIZE / 2 + 0.2 * vx, y + Sprite.SIZE / 2 + 0.2 * vy, vx, vy, Color.RED));
+		double vx = Math.sin(rotation) * 300;
+		double vy = -Math.cos(rotation) * 300;
+		universe.addEntity(new Particle(universe, x + Sprite.SIZE / 2 + 0.1 * vx, y + Sprite.SIZE / 2 + 0.1 * vy, vx, vy, Color.RED));
 	}
 	
 	public void reset() {

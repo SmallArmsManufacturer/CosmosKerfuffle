@@ -91,6 +91,25 @@ public class Universe {
 			}
                         
                         if (e instanceof Planet) {
+                            for (Entity trains : entities) {
+                                if (trains instanceof Particle) {
+                                    Particle particle = (Particle) trains;
+                                    if (particle.colour != Color.WHITE)
+                                    {
+                                        Planet p = (Planet) e;
+                                        double distanceX = (double)particle.x - (double)e.x - p.radius;
+                                        double distanceY = (double)particle.y - (double)e.y - p.radius;
+                                        double distance = distanceX * distanceX + distanceY * distanceY;
+                                        double force = (e.mass) / (distance * 0.1);
+
+
+                                        force = force / (Math.abs(distanceX) + Math.abs(distanceY));
+                                        particle.vx -= force * distanceX;
+                                        particle.vy -= force * distanceY;
+                                    }
+                                }
+                            }
+
                             Planet p = (Planet) e;
                             double distanceX = (double)player1.x - (double)e.x - p.radius;
                             double distanceY = (double)player1.y - (double)e.y - p.radius;
@@ -100,7 +119,6 @@ public class Universe {
                             force = force / (Math.abs(distanceX) + Math.abs(distanceY));
                             player1.vx -= force * distanceX;
                             player1.vy -= force * distanceY;
-                            
                             if (Math.sqrt(distance) < p.radius)
                                 player1.reset();
                             
