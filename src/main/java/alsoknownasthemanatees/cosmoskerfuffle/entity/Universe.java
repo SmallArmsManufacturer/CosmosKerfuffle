@@ -47,7 +47,7 @@ public class Universe {
 			double vel = r.nextDouble() * 200 - 100;
 			double vx = vel * Math.sin(angle);
 			double vy = vel * Math.cos(angle);
-			Particle particle = new Particle(this, x, y, vx, vy, Color.YELLOW);
+			Particle particle = new Particle(this, x, y, vx, vy, Color.RED);
 			particle.fade = true;
 			entitiesToAdd.add(particle);
 		}
@@ -69,7 +69,7 @@ public class Universe {
 		for (Entity e : entities) {
 			if (e instanceof Particle) {
 				Particle p = (Particle) e;
-				if (p.colour == Color.RED) {
+				if (p.colour == Color.YELLOW) {
 					double dx = player1.x + Sprite.SIZE / 2 - p.x;
 					double dy = player1.y + Sprite.SIZE / 2 - p.y;
 					if (dx * dx + dy * dy < Sprite.SIZE * Sprite.SIZE) {
