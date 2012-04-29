@@ -121,6 +121,7 @@ public class Universe {
                             player1.vy -= force * distanceY;
                             if (Math.sqrt(distance) < p.radius)
                             {
+								explode((int) player1.x, (int) player1.y);
                                 player1.reset();
                                 player1.score -= 5;
                             }
@@ -135,6 +136,7 @@ public class Universe {
                             player2.vy -= force * distanceY;
                             if (Math.sqrt(distance) < p.radius)
                             {
+								explode((int) player2.x, (int) player2.y);
                                 player2.reset();
                                 player2.x += 100;
                                 player2.score -= 5;
