@@ -41,6 +41,6 @@ public class Sprite {
 		g.setTransform(t);
 	}
 	
-	public static enum Type { PARROT, MANTA_RAY, TURTLE }
+	public static enum Type { PARROT, MANTA_RAY, TURTLE, PLANET1, PLANET2, PLANET3 }
 	
 }

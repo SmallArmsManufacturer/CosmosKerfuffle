@@ -19,6 +19,7 @@ public class Universe {
 	private List<Entity> entitiesToAdd = new ArrayList<Entity>();
 	private List<Entity> entitiesToRemove = new ArrayList<Entity>();
 	public Ship player1, player2;
+        public Planet planet1, planet2, planet3;
 	
 	public Universe() {
 		player1 = new Ship(this, new Sprite(Sprite.Type.PARROT));
@@ -29,6 +30,14 @@ public class Universe {
 		Random r = new Random();
 		for (int i = 0; i < NUM_STARS; i++)
 			entities.add(new Particle(this, r.nextDouble() * Universe.SIZE, r.nextDouble() * Universe.SIZE, 0, 0, Color.WHITE));
+		planet1 = new Planet(this, new Sprite(Sprite.Type.PLANET1), 50.0, 1000.0, 200, 200);
+                planet2 = new Planet(this, new Sprite(Sprite.Type.PLANET2), 30.0, 500.0, 600, 700);
+		planet3 = new Planet(this, new Sprite(Sprite.Type.PLANET3), 70.0, 1000.0, 800, 200);
+
+                entities.add(planet1);
+                entities.add(planet2);
+                entities.add(planet3);
+
 	}
 	
 	public void explode(int x, int y) {
@@ -80,6 +89,32 @@ public class Universe {
 					}
 				}
 			}
+                        
+                        if (e instanceof Planet) {
+                            Planet p = (Planet) e;
+                            double distanceX = (double)player1.x - (double)e.x - p.radius;
+                            double distanceY = (double)player1.y - (double)e.y - p.radius;
+                            double distance = distanceX * distanceX + distanceY * distanceY;
+                            double force = (e.mass) / (distance * 0.1);
+
+                            force = force / (Math.abs(distanceX) + Math.abs(distanceY));
+                            player1.vx -= force * distanceX;
+                            player1.vy -= force * distanceY;
+                            
+                            if (Math.sqrt(distance) < p.radius)
+                                player1.reset();
+                            
+                            distanceX = (double)player2.x - (double)e.x - p.radius;
+                            distanceY = (double)player2.y - (double)e.y - p.radius;
+                            distance = distanceX * distanceX + distanceY * distanceY;
+                            force = (e.mass) / (distance * 0.1);
+
+                            force = force / (Math.abs(distanceX) + Math.abs(distanceY));
+                            player2.vx -= force * distanceX;
+                            player2.vy -= force * distanceY;
+                            if (Math.sqrt(distance) < p.radius)
+                                player2.reset();
+                        }
 			
 			e.update(dt);
 		}
@@ -100,8 +135,8 @@ public class Universe {
 		double max_x = Math.max(player1.x, player2.x) + Sprite.SIZE;
 		double max_y = Math.max(player1.y, player2.y) + Sprite.SIZE;
 		
-		double zoomX = (max_x - min_x) / (GamePanel.instance.getWidth() - 100);
-		double zoomY = (max_y - min_y) / (GamePanel.instance.getHeight() - 100);
+		double zoomX = (max_x - min_x) / (GamePanel.instance.getWidth() - 300);
+		double zoomY = (max_y - min_y) / (GamePanel.instance.getHeight() - 300);
 		double zoom = 1 / Math.max(zoomX, zoomY);
 		if (zoom > 5) zoom = 5;
 		
