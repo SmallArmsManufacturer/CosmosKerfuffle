@@ -17,6 +17,7 @@ public class SplashScreen extends Scene {
 	
 	@Override
 	public void keyPressed(KeyEvent ke) {
+		super.keyPressed(ke);
 		Scene.stack.push(new MainScene());
 	}
 	

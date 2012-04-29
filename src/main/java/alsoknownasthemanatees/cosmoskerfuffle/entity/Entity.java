@@ -7,13 +7,16 @@ import java.util.Random;
 public class Entity {
 	
 	public final Sprite sprite;
-	public double x, y, vx, vy;
+	public double x, y, vx, vy, rotation;
 	
 	public Entity(Sprite sprite) {
 		this.sprite = sprite;
 		Random r = new Random();
-		vx = r.nextDouble() * 20.0 - 10.0;
-		vy = r.nextDouble() * 20.0 - 10.0;
+	}
+	
+	public void thrust (double dt) {
+		vx += Math.sin(rotation) * dt * 100;
+		vy -= Math.cos(rotation) * dt * 100;
 	}
 	
 }

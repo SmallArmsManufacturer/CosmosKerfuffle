@@ -10,7 +10,6 @@ public class Sprite {
 	
 	public static final int SIZE = 16;
 	private static BufferedImage spriteSheet;
-	double total = 0;
 	private int x, y;
 	
 	static {
@@ -30,11 +29,10 @@ public class Sprite {
 		y = row * SIZE;
 	}
 	
-	public void paint(Graphics2D g, int x, int y, int size) {
+	public void paint(Graphics2D g, double rotation, int x, int y, int size) {
 		AffineTransform t = g.getTransform();
 		g.translate(x + SIZE / 2, y + SIZE / 2);
-		total += 0.01;
-		g.rotate(total);
+		g.rotate(rotation);
 		g.translate(-x - SIZE / 2,-y - SIZE / 2);
 		g.drawImage(spriteSheet,
 					x,      y,      x + size,      y + size,      // Destination

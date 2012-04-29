@@ -5,6 +5,7 @@ import alsoknownasthemanatees.cosmoskerfuffle.entity.Entity;
 import alsoknownasthemanatees.cosmoskerfuffle.graphics.Sprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,13 @@ public class MainScene extends Scene {
 	
 	@Override
 	public void update(double dt) {
+			if (keys.contains(KeyEvent.VK_UP))
+				entities.get(0).thrust(dt);
+			if (keys.contains(KeyEvent.VK_LEFT))
+				entities.get(0).rotation -= Math.PI * dt;
+			if (keys.contains(KeyEvent.VK_RIGHT))
+				entities.get(0).rotation += Math.PI * dt;
+
 		for (Entity e : entities) {
 			e.x += e.vx * dt;
 			e.y += e.vy * dt;
@@ -53,7 +61,7 @@ public class MainScene extends Scene {
 		g.setTransform(t);
 		
 		for (Entity e : entities) {
-			e.sprite.paint(g, (int) (e.x - center_x), (int) (e.y - center_y), Sprite.SIZE);
+			e.sprite.paint(g, e.rotation, (int) (e.x - center_x), (int) (e.y - center_y), Sprite.SIZE);
 		}
 	}
 	
