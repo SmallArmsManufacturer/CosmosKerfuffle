@@ -15,6 +15,7 @@ public class Universe {
 	public static int NUM_STARS = 1000;
 	
 	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Entity> entitiesToAdd = new ArrayList<Entity>();
 	private List<Entity> entitiesToRemove = new ArrayList<Entity>();
 	public Ship player1, player2;
 	
@@ -24,8 +25,9 @@ public class Universe {
 		player2.x += 100;
 		entities.add(player1);
 		entities.add(player2);
+		Random r = new Random();
 		for (int i = 0; i < NUM_STARS; i++)
-			entities.add(new Star(this));
+			entities.add(new Particle(this, r.nextDouble() * Universe.SIZE, r.nextDouble() * Universe.SIZE, 0, 0, Color.WHITE));
 	}
 	
 	public void explode(int x, int y) {
@@ -35,7 +37,9 @@ public class Universe {
 			double vel = r.nextDouble() * 200 - 100;
 			double vx = vel * Math.sin(angle);
 			double vy = vel * Math.cos(angle);
-			entities.add(new Particle(this, x, y, vx, vy, Color.RED));
+			Particle particle = new Particle(this, x, y, vx, vy, Color.YELLOW);
+			particle.fade = true;
+			entitiesToAdd.add(particle);
 		}
 	}
 	
@@ -45,18 +49,41 @@ public class Universe {
 		
 		if (x * x + y * y < Sprite.SIZE * Sprite.SIZE) {
 			explode((int) (player1.x + x + Sprite.SIZE / 2), (int) (player1.y + y + Sprite.SIZE / 2));
-			player1.x = SIZE / 2;
-			player2.x = player1.x + 100;
-			player1.y = player2.y = SIZE / 2;
-			player1.vx = player1.vy = player1.rotation = player2.vx = player2.vy = player2.rotation = 0;
+			player1.reset();
+			player2.reset();
+			player2.x += 100;
 		}
 		
 		for (Entity e : entities) {
+			if (e instanceof Particle) {
+				Particle p = (Particle) e;
+				if (p.colour == Color.RED) {
+					double dx = player1.x + Sprite.SIZE / 2 - p.x;
+					double dy = player1.y + Sprite.SIZE / 2 - p.y;
+					if (dx * dx + dy * dy < Sprite.SIZE * Sprite.SIZE) {
+						explode((int) (player1.x + Sprite.SIZE / 2), (int) (player1.y + Sprite.SIZE / 2));
+						removeEntity(p);
+						player1.reset();
+					}
+					double dx2 = player2.x + Sprite.SIZE / 2 - p.x;
+					double dy2 = player2.y + Sprite.SIZE / 2 - p.y;
+					if (dx2 * dx2 + dy2 * dy2 < Sprite.SIZE * Sprite.SIZE) {
+						explode((int) (player2.x + Sprite.SIZE / 2), (int) (player2.y + Sprite.SIZE / 2));
+						removeEntity(p);
+						player2.reset();
+						player2.x += 100;
+					}
+				}
+			}
+			
 			e.update(dt);
 		}
 		
 		entities.removeAll(entitiesToRemove);
 		entitiesToRemove.clear();
+		
+		entities.addAll(entitiesToAdd);
+		entitiesToAdd.clear();
 	}
 	
 	public void paint(Graphics2D g) {
@@ -86,6 +113,10 @@ public class Universe {
 		for (Entity e : entities) {
 			e.paint(g);
 		}
+	}
+	
+	public void addEntity(Entity e) {
+		entitiesToAdd.add(e);
 	}
 	
 	public void removeEntity(Entity e) {

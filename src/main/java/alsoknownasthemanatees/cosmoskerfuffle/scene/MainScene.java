@@ -32,4 +32,13 @@ public class MainScene extends Scene {
 		universe.paint(g);
 	}
 	
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		super.keyPressed(ke);
+		if (ke.getKeyCode() == KeyEvent.VK_E)
+			universe.player1.fire();
+		else if (ke.getKeyCode() == KeyEvent.VK_SPACE)
+			universe.player2.fire();
+	}
+	
 }

@@ -1,6 +1,7 @@
 package alsoknownasthemanatees.cosmoskerfuffle.entity;
 
 import alsoknownasthemanatees.cosmoskerfuffle.graphics.Sprite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Ship extends Entity {
@@ -22,6 +23,17 @@ public class Ship extends Entity {
 			vx *= 0.8;
 			vy *= 0.8;
 		}
+	}
+	
+	public void fire() {
+		double vx = Math.sin(rotation) * 100;
+		double vy = -Math.cos(rotation) * 100;
+		universe.addEntity(new Particle(universe, x + Sprite.SIZE / 2 + 0.2 * vx, y + Sprite.SIZE / 2 + 0.2 * vy, vx, vy, Color.RED));
+	}
+	
+	public void reset() {
+		x = y = Universe.SIZE / 2;
+		vx = vy = rotation = 0;
 	}
 	
 	@Override
