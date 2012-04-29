@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private long prevTime = System.nanoTime();
 	
 	private GamePanel() {
-		setPreferredSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(600, 600));
 	}
 	
 	@Override
